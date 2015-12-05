@@ -29,6 +29,11 @@ namespace StockExchangeSystem
         public StockInfo()
         {
             this.InitializeComponent();
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed += (sender, args) =>
+            {
+                Frame.Navigate(typeof(MainPage));
+                args.Handled = true;
+            };
         }
 
         /// <summary>

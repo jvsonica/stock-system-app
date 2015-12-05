@@ -49,6 +49,7 @@ namespace StockExchangeSystem
             loginOrRegister();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
+        
         }
 
         /// <summary>
@@ -58,13 +59,8 @@ namespace StockExchangeSystem
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // TODO: Prepare page for display here.
+            this.StocksList.SelectedIndex= -1;
 
-            // TODO: If your application contains multiple pages, ensure that you are
-            // handling the hardware Back button by registering for the
-            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
-            // If you are using the NavigationHelper provided by some templates,
-            // this event is handled for you.
         }
 
         private async void loginOrRegister()
@@ -158,10 +154,16 @@ namespace StockExchangeSystem
 
         private void StocksList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var element = (ListBox) sender;
-            var selected = (Stock) element.SelectedItems.First();
-            Frame.Navigate(typeof (StockInfo), selected);
-            //throw new NotImplementedException();
+            try
+            {
+                var element = (ListBox)sender;
+                var selected = (Stock)element.SelectedItems.First();
+                Frame.Navigate(typeof(StockInfo), selected);
+            }
+            catch (Exception)
+            {
+                // ignored
+            } 
         }
     }
 }
