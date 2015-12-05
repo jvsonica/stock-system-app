@@ -34,7 +34,6 @@ namespace StockExchangeSystem
 
         private ObservableCollection<Stock> stocks;
         private PushNotificationChannel channel;
-        private Stock addedStock;
         private int userID;
 
 

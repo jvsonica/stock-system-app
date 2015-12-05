@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="5ce967dd-d7c6-46c6-8689-7a9ba62328c3" Publisher="CN=Leonel" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="5ce967dd-d7c6-46c6-8689-7a9ba62328c3" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="35524leonelaraujo.CMOVProjeto2" Publisher="CN=D10EB141-C3A2-4C4D-930A-5C1053D7818E" Version="1.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="4f03ea2e-bf7d-4224-816c-dbabe7c99995" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>StockExchangeSystem</DisplayName>
-    <PublisherDisplayName>Leonel</PublisherDisplayName>
+    <DisplayName>CMOVProjeto2</DisplayName>
+    <PublisherDisplayName>leonel_araujo</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
@@ -16,7 +16,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="StockExchangeSystem.App">
-      <m3:VisualElements DisplayName="StockExchangeSystem" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="StockExchangeSystem" ForegroundText="light" BackgroundColor="transparent" ToastCapable="true">
+      <m3:VisualElements DisplayName="CMOVProjectStockSystem" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="StockExchangeSystem" ForegroundText="light" BackgroundColor="transparent" ToastCapable="true">
         <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\SplashScreen.png" />
