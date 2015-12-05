@@ -114,8 +114,10 @@ namespace StockExchangeSystem
 
         }
 
-        private async void addStockToUser(string symbol, int id)
+        private async void AddStockToUser(string symbol, int id)
         {
+            if (stocks.Any(stock => stock.Symbol == symbol)) return;
+
             string url = "https://cmovstocksystem.herokuapp.com/stock/add?user=" + id + "&symbol=" + symbol + "&lower=0&upper=300";
             Uri uri = new Uri(url);
             HttpClient client = new HttpClient();
@@ -142,7 +144,7 @@ namespace StockExchangeSystem
         {
             Button button = (Button)sender;
 
-            addStockToUser(tbox1.Text.ToString(), userID);
+            AddStockToUser(tbox1.Text.ToString(), userID);
             tbox1.Text = "";
         }
 
