@@ -15,6 +15,8 @@ namespace StockExchangeSystem.Models
     {
         private String symbol;
         private String name;
+        private String upper;
+        private String lower;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,10 +26,18 @@ namespace StockExchangeSystem.Models
             getStockName(symbol);
         }
 
+        public Stock(string symbol, string name, string upper, string lower)
+        {
+            this.Symbol = symbol;
+            this.name = name;
+            this.upper = upper;
+            this.lower = lower;
+        }
+
         private async void getStockName(string symbol)
         {
 
-            string url = "https://cmovstocksystem.herokuapp.com/stock/add?user=1&name="+symbol+"&lower=0&upper=300";
+            string url = "https://cmovstocksystem.herokuapp.com/stock/add?user=1&symbol="+symbol+"&lower=0&upper=300";
             Uri uri = new Uri(url);
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(uri);

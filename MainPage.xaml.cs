@@ -15,6 +15,13 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Windows.Networking.PushNotifications;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Notifications;
+using System.Net.Http;
+using System.Net;
+using Windows.Data.Json;
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
 namespace StockExchangeSystem
@@ -26,11 +33,18 @@ namespace StockExchangeSystem
     {
 
         private ObservableCollection<Stock> stocks;
+        private PushNotificationChannel channel;
+
 
         public MainPage()
         {
             this.InitializeComponent();
 
+            // Initialize Acccount
+            loginOrRegister();
+
+
+            // Initialize Stocks
             stocks = new ObservableCollection<Stock>();
             stocksList.ItemsSource = stocks;
 
@@ -53,11 +67,60 @@ namespace StockExchangeSystem
             // this event is handled for you.
         }
 
+        private async void loginOrRegister()
+        {
+            try
+            {
+                this.channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
+
+                var values = new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("uri", this.channel.Uri)
+                    };
+
+                string url = "https://cmovstocksystem.herokuapp.com/login";
+                Uri uri = new Uri(url);
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.PostAsync(uri, new FormUrlEncodedContent(values));
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    string answer = await response.Content.ReadAsStringAsync();
+
+                    JsonObject json = JsonObject.Parse(answer);
+                    JsonArray arr = json.GetNamedArray("stocks");
+                    
+                    // If there is any stock already associated, show it on the interface
+                    if (arr != null)
+                    {
+                        foreach (var item in arr)
+                        {
+                            JsonObject stock = JsonObject.Parse(item.Stringify());
+                            string symbol = stock.GetNamedString("symbol");
+                            string name = stock.GetNamedString("name");
+                            string upper = stock.GetNamedNumber("upper").ToString();
+                            string lower = stock.GetNamedNumber("lower").ToString();
+                            stocks.Add(new Stock(symbol, name, upper,lower));
+                        }
+                    }
+                    
+                }
+                else if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    // Something went wrong with the request
+
+                }
+            }
+            catch (Exception e)
+            {
+                // Oops error somewhere
+            }
+
+        }
+
         private void btn_add_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            // TODO: Verify if it exists
-            
+            // TODO: Verify if it exists before adding
             stocks.Add(new Stock(tbox1.Text.ToString()));
             tbox1.Text = "";
 
