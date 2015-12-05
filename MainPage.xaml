@@ -59,33 +59,28 @@
                 VerticalAlignment="Top" 
                 Content="Add Stock" Click="btn_add_Click" 
                 Margin="30,0,30,0" MinWidth="10"/>     
-
+        
         <!-- Added Stocks -->
         <ListBox Grid.Row="4"
-                x:Name="stocksList" 
-                 ItemsSource="{Binding stocks}"
+                 x:Name="StocksList"
                  VerticalAlignment="Top" 
                  HorizontalAlignment="Left"
-                 Margin="12,0,12,0">
+                 Margin="12,0,12,0" 
+                 ItemsSource="{Binding Path=stocks}"
+                 SelectionChanged="StocksList_OnSelectionChanged"
+                 >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Row="0" Grid.Column="0"  Orientation="Horizontal"
-                                    Margin="10,10,10,10">
-                            <TextBlock Text="{Binding Path=Symbol}"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Row="0"  Grid.Column="1" Orientation="Horizontal"
-                                    Margin="10,10,10,10">
-                            <TextBlock Text="{Binding Path=Name}"/>
-                        </StackPanel>
+                        <TextBlock Width="300" Text="{Binding Path=Symbol}" Tapped="UIElement_OnTapped" Grid.Column="0"/>
+                        <TextBlock Width="300" Text="{Binding Path=Name}" Tapped="UIElement_OnTapped" Grid.Column="1"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

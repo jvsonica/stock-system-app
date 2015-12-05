@@ -46,7 +46,7 @@ namespace StockExchangeSystem
 
             // Initialize Stocks
             stocks = new ObservableCollection<Stock>();
-            stocksList.ItemsSource = stocks;
+            StocksList.ItemsSource = stocks;
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
@@ -123,12 +123,20 @@ namespace StockExchangeSystem
             // TODO: Verify if it exists before adding
             stocks.Add(new Stock(tbox1.Text.ToString()));
             tbox1.Text = "";
-
         }
 
-        private void btn_more_info_Click(object sender, RoutedEventArgs e)
+        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
 
+            
+        }
+
+        private void StocksList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var element = (ListBox) sender;
+            var selected = (Stock) element.SelectedItems.First();
+            Frame.Navigate(typeof (StockInfo), selected);
+            //throw new NotImplementedException();
         }
     }
 }
