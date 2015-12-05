@@ -15,18 +15,18 @@
             TextWrapping="Wrap" 
             Text="StockName" 
             VerticalAlignment="Top"
-            FontSize="30"
+            FontSize="30" Margin="23,26,0,0"
             />
         <CheckBox 
             x:Name="notifications" 
             Content="Notifications" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
-            Margin="222,-8,0,0"/>
+            Margin="25,72,0,0"/>
         <TextBlock 
             x:Name="UpperLimitLabel" 
             HorizontalAlignment="Left" 
-            Margin="30,63,0,0" 
+            Margin="23,146,0,0" 
             TextWrapping="Wrap" 
             Text="Upper Limit"
             VerticalAlignment="Top" 
@@ -37,11 +37,11 @@
         	VerticalAlignment="Top" 
         	InputScope="AlphanumericFullWidth" 
             FontSize="20"
-        	Margin="200,63,80,0"/>
+        	Margin="193,146,87,0"/>
         <TextBlock 
         	x:Name="LowerLimitLabel" 
         	HorizontalAlignment="Left" 
-        	Margin="30,123,0,0" 
+        	Margin="23,206,0,0" 
         	TextWrapping="Wrap" 
         	Text="TextBlock"
         	VerticalAlignment="Top" 
@@ -52,7 +52,7 @@
         	VerticalAlignment="Top" 
         	InputScope="AlphanumericFullWidth" 
         	FontSize="20"
-        	Margin="200,123,80,0"/>
+        	Margin="193,206,87,0"/>
 
     </Grid>
 </Page>

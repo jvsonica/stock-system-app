@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Data.Json;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -33,12 +36,26 @@ namespace StockExchangeSystem
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.
         /// This parameter is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             var stockArg = e.Parameter as Stock;
             if (stockArg == null) throw new ArgumentNullException(nameof(stockArg));
             this.StockName.Text = stockArg.Name ?? "";
             this.Stock = stockArg;
+
+            string url = "https://cmovstocksystem.herokuapp.com/stock/currentPrice?symbol=" + Stock.Symbol;
+            Uri uri = new Uri(url);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                string answer = await response.Content.ReadAsStringAsync();
+                JsonObject json = JsonObject.Parse(answer);
+                var price = json.GetNamedNumber("lastTradePriceOnly");
+                this.StockName.Text = Stock.Name + " - " + price + " $";
+            }
+
+
         }
 
         public Stock Stock { get; set; }
