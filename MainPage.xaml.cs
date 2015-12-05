@@ -34,19 +34,20 @@ namespace StockExchangeSystem
 
         private ObservableCollection<Stock> stocks;
         private PushNotificationChannel channel;
+        private Stock addedStock;
+        private int userID;
 
 
         public MainPage()
         {
             this.InitializeComponent();
 
-            // Initialize Acccount
-            loginOrRegister();
-
-
             // Initialize Stocks
             stocks = new ObservableCollection<Stock>();
             stocksList.ItemsSource = stocks;
+
+            // Initialize Acccount
+            loginOrRegister();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
@@ -87,6 +88,7 @@ namespace StockExchangeSystem
                     string answer = await response.Content.ReadAsStringAsync();
 
                     JsonObject json = JsonObject.Parse(answer);
+                    this.userID = (int) json.GetNamedNumber("id");
                     JsonArray arr = json.GetNamedArray("stocks");
                     
                     // If there is any stock already associated, show it on the interface
@@ -117,11 +119,35 @@ namespace StockExchangeSystem
 
         }
 
+        private async void addStockToUser(string symbol, int id)
+        {
+            string url = "https://cmovstocksystem.herokuapp.com/stock/add?user=" + id + "&symbol=" + symbol + "&lower=0&upper=300";
+            Uri uri = new Uri(url);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                string answer = await response.Content.ReadAsStringAsync();
+                JsonObject json = JsonObject.Parse(answer);
+                if(json.GetNamedString("name") != null){
+                    string name = json.GetNamedString("name");
+                    string upper = json.GetNamedNumber("upper").ToString();
+                    string lower = json.GetNamedNumber("lower").ToString();
+                    stocks.Add(new Stock(symbol, name, upper, lower));
+                }
+                
+            }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                // Request went wrong
+            }
+        }
+
         private void btn_add_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            // TODO: Verify if it exists before adding
-            stocks.Add(new Stock(tbox1.Text.ToString()));
+
+            addStockToUser(tbox1.Text.ToString(), userID);
             tbox1.Text = "";
 
         }

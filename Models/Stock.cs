@@ -23,7 +23,6 @@ namespace StockExchangeSystem.Models
         public Stock(string symbol)
         {
             this.Symbol = symbol;
-            getStockName(symbol);
         }
 
         public Stock(string symbol, string name, string upper, string lower)
@@ -32,25 +31,6 @@ namespace StockExchangeSystem.Models
             this.name = name;
             this.upper = upper;
             this.lower = lower;
-        }
-
-        private async void getStockName(string symbol)
-        {
-
-            string url = "https://cmovstocksystem.herokuapp.com/stock/add?user=1&symbol="+symbol+"&lower=0&upper=300";
-            Uri uri = new Uri(url);
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(uri);
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                string answer = await response.Content.ReadAsStringAsync();
-                JsonObject json = JsonObject.Parse(answer);
-                this.Name = json.GetNamedString("name");
-            }
-            else if(response.StatusCode == HttpStatusCode.BadRequest)
-            {
-
-            }
         }
 
         public string Symbol
