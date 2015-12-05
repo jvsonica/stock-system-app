@@ -96,7 +96,8 @@ namespace StockExchangeSystem
                             string name = stock.GetNamedString("name");
                             string upper = stock.GetNamedNumber("upper").ToString();
                             string lower = stock.GetNamedNumber("lower").ToString();
-                            stocks.Add(new Stock(symbol, name, upper,lower));
+                            bool notify = stock.GetNamedBoolean("notification");
+                            stocks.Add(new Stock(symbol, name, upper,lower,notify ? "true" : "false"));
                         }
                     }
                     
@@ -125,12 +126,13 @@ namespace StockExchangeSystem
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 string answer = await response.Content.ReadAsStringAsync();
-                JsonObject json = JsonObject.Parse(answer);
-                if(json.GetNamedString("name") != null){
-                    string name = json.GetNamedString("name");
-                    string upper = json.GetNamedNumber("upper").ToString();
-                    string lower = json.GetNamedNumber("lower").ToString();
-                    stocks.Add(new Stock(symbol, name, upper, lower));
+                JsonObject stock = JsonObject.Parse(answer);
+                if(stock.GetNamedString("name") != null){
+                    string name = stock.GetNamedString("name");
+                    string upper = stock.GetNamedNumber("upper").ToString();
+                    string lower = stock.GetNamedNumber("lower").ToString();
+                    Boolean notify = stock.GetNamedBoolean("notification");
+                    stocks.Add(new Stock(symbol, name, upper, lower, notify ? "true":"false"));
                 }
                 
             }

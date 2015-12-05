@@ -18,11 +18,11 @@
             FontSize="30" Margin="23,26,0,0"
             />
         <CheckBox 
-            x:Name="notifications" 
+            x:Name="Notifications" 
             Content="Notifications" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
-            Margin="25,72,0,0"/>
+            Margin="25,72,0,0" Checked="notifications_Checked"/>
         <TextBlock 
             x:Name="UpperLimitLabel" 
             HorizontalAlignment="Left" 

@@ -57,7 +57,11 @@ namespace StockExchangeSystem
                 string answer = await response.Content.ReadAsStringAsync();
                 JsonObject json = JsonObject.Parse(answer);
                 var price = json.GetNamedNumber("lastTradePriceOnly");
+                Notifications.IsChecked = Stock.Notify;
                 this.StockName.Text = Stock.Name + " - " + price + " $";
+                this.UpperLimit.Text = Stock.Upper.ToString();
+                this.LowerLimit.Text = Stock.Lower.ToString();
+                this.Notifications.IsChecked = Stock.Notify;
             }
 
 
@@ -68,6 +72,11 @@ namespace StockExchangeSystem
         private void textBlock_SelectionChanged(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void notifications_Checked(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
