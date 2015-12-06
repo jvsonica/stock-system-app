@@ -65,7 +65,7 @@ namespace StockExchangeSystem
                 this.LowerLimit.Text = Stock.Lower.ToString();
                 this.Notifications.IsChecked = Stock.Notify;
             }
-
+            Chart.NavigateToString("<style>img{width:100vw;heigth:100vh;}</style><img src=\"http://chart.finance.yahoo.com/z?s="+Stock.Symbol+"\">");
 
         }
 

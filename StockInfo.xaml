@@ -58,6 +58,8 @@
                  LostFocus="LowerLimit_OnLostFocus"
         	FontSize="20"
         	Margin="193,206,87,0"/>
+        <ScrollViewer HorizontalAlignment="Left" Height="100" Margin="299,622,0,-322" VerticalAlignment="Top" Width="100"/>
+        <WebView x:Name="Chart" HorizontalAlignment="Left" Height="180" VerticalAlignment="Top" Width="400" Margin="0,275,0,0" />
 
     </Grid>
 </Page>
