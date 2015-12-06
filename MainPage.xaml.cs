@@ -21,6 +21,7 @@ using Windows.UI.Notifications;
 using System.Net.Http;
 using System.Net;
 using Windows.Data.Json;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -108,6 +109,7 @@ namespace StockExchangeSystem
                 }
                 else if (response.StatusCode == HttpStatusCode.BadRequest)
                 {
+
                     // Something went wrong with the request
 
                 }
@@ -121,7 +123,14 @@ namespace StockExchangeSystem
 
         private async void AddStockToUser(string symbol, int id)
         {
-            if (stocks.Any(stock => stock.Symbol == symbol)) return;
+            if (stocks.Any(stock => stock.Symbol == symbol))
+            {
+                var dialog = new MessageDialog("This Stock Already Exists","Error");
+                dialog.Commands.Clear();
+                dialog.Commands.Add(new UICommand("Ok"));
+                dialog.ShowAsync();
+                return;
+            };
 
             string url = "https://cmovstocksystem.herokuapp.com/stock/add?user=" + id + "&symbol=" + symbol + "&lower=0&upper=300";
             Uri uri = new Uri(url);
