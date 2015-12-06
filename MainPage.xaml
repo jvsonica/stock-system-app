@@ -78,9 +78,14 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Width="300" Text="{Binding Path=Symbol}" Tapped="UIElement_OnTapped" Grid.Column="0"/>
-                        <TextBlock Width="300" Text="{Binding Path=Name}" Tapped="UIElement_OnTapped" Grid.Column="1"/>
+                        <TextBlock Width="200" Text="{Binding Path=Symbol}" Tapped="UIElement_OnTapped" Grid.Column="0"/>
+                        <TextBlock Width="200" Text="{Binding Path=Name}" Tapped="UIElement_OnTapped" Grid.Column="1"/>
+                        <TextBlock Width="200"  Tapped="UIElement_OnTapped" Grid.Column="2">
+                            <Run Text="{Binding Path=Price}"/>
+                            <Run Text="$"/>
+                        </TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

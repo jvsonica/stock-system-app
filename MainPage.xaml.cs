@@ -102,7 +102,8 @@ namespace StockExchangeSystem
                             string lower = stock.GetNamedNumber("lower").ToString();
                             bool notify = stock.GetNamedBoolean("notification");
                             string id = stock.GetNamedNumber("id").ToString();
-                            stocks.Add(new Stock(symbol, name, upper,lower,notify ? "true" : "false",id));
+                            string price = stock.GetNamedNumber("price").ToString();
+                            stocks.Add(new Stock(symbol, name, upper,lower,notify ? "true" : "false",id,price));
                         }
                     }
                     
@@ -145,8 +146,9 @@ namespace StockExchangeSystem
                     string upper = stock.GetNamedNumber("upper").ToString();
                     string lower = stock.GetNamedNumber("lower").ToString();
                     Boolean notify = stock.GetNamedBoolean("notification");
+                    string price = stock.GetNamedNumber("price").ToString();
                     string _id = stock.GetNamedNumber("id").ToString();
-                    stocks.Add(new Stock(symbol, name, upper, lower, notify ? "true":"false",_id));
+                    stocks.Add(new Stock(symbol, name, upper, lower, notify ? "true":"false",_id,price));
                 }
                 
             }
