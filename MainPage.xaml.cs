@@ -152,7 +152,11 @@ namespace StockExchangeSystem
             }
             else if (response.StatusCode == HttpStatusCode.BadRequest)
             {
-                // Request went wrong
+                var dialog = new MessageDialog("Invalid Stock", "Error");
+                dialog.Commands.Clear();
+                dialog.Commands.Add(new UICommand("Ok"));
+                dialog.ShowAsync();
+                return;
             }
         }
 

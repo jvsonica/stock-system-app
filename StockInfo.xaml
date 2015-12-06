@@ -22,14 +22,14 @@
             Content="Notifications" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
-            Margin="25,72,0,0" 
+            Margin="25,130,0,0" 
             Checked="notifications_Checked"
             Unchecked="notifications_Checked"
             />
         <TextBlock 
             x:Name="UpperLimitLabel" 
             HorizontalAlignment="Left" 
-            Margin="23,146,0,0" 
+            Margin="23,204,0,0" 
             TextWrapping="Wrap" 
             Text="Upper Limit"
             VerticalAlignment="Top" 
@@ -41,11 +41,11 @@
         	InputScope="AlphanumericFullWidth" 
             FontSize="20"
                 LostFocus="UpperLimit_OnLostFocus"
-        	Margin="193,146,87,0"/>
+        	Margin="193,204,87,0"/>
         <TextBlock 
         	x:Name="LowerLimitLabel" 
         	HorizontalAlignment="Left" 
-        	Margin="23,206,0,0" 
+        	Margin="23,264,0,0" 
         	TextWrapping="Wrap" 
         	Text="LowerLimit"
         	VerticalAlignment="Top" 
@@ -57,9 +57,9 @@
         	InputScope="AlphanumericFullWidth" 
                  LostFocus="LowerLimit_OnLostFocus"
         	FontSize="20"
-        	Margin="193,206,87,0"/>
+        	Margin="193,264,87,0"/>
         <ScrollViewer HorizontalAlignment="Left" Height="100" Margin="299,622,0,-322" VerticalAlignment="Top" Width="100"/>
-        <WebView x:Name="Chart" HorizontalAlignment="Left" Height="180" VerticalAlignment="Top" Width="400" Margin="0,275,0,0" />
+        <WebView x:Name="Chart" HorizontalAlignment="Left" Height="180" VerticalAlignment="Top" Width="400" Margin="0,333,0,0" />
 
     </Grid>
 </Page>
