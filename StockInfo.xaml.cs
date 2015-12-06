@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -8,6 +9,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Data.Json;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -69,14 +71,44 @@ namespace StockExchangeSystem
 
         public Stock Stock { get; set; }
 
-        private void textBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        private async void updateStock()
         {
-
+            string url = "https://cmovstocksystem.herokuapp.com/stock/patch?"+
+                "id=" + Stock.Id + 
+                "&notification=" + Notifications.IsChecked.ToString().ToLower()+
+                "&upper=" + UpperLimit.Text +
+                "&lower=" + LowerLimit.Text;
+            Uri uri = new Uri(url);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                string answer = await response.Content.ReadAsStringAsync();
+                JsonObject stock = JsonObject.Parse(answer);
+                    Stock.Upper= stock.GetNamedNumber("upper");
+                    Stock.Lower= stock.GetNamedNumber("lower");
+                    Stock.Notify= stock.GetNamedBoolean("notification");
+            }
         }
 
-        private void notifications_Checked(object sender, RoutedEventArgs e)
+        private void textBlock_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            
+            updateStock();
+        }
+
+        private async void notifications_Checked(object sender, RoutedEventArgs e)
+        {
+            updateStock();
+        }
+
+        private void UpperLimit_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            updateStock();
+        }
+
+        private void LowerLimit_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            updateStock();
         }
     }
 }

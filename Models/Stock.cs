@@ -18,6 +18,7 @@ namespace StockExchangeSystem.Models
         private double upper;
         private double lower;
         private bool notify;
+        private int id;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -26,13 +27,14 @@ namespace StockExchangeSystem.Models
             this.Symbol = symbol;
         }
 
-        public Stock(string symbol, string name, string upper, string lower,string notify)
+        public Stock(string symbol, string name, string upper, string lower,string notify,string id)
         {
             this.Symbol = symbol;
             this.name = name;
             this.upper = Double.Parse(upper);
             this.lower = Double.Parse(lower);
             this.notify= Boolean.Parse(notify);
+            this.id    = Int32.Parse(id);
         }
 
         public string Symbol
@@ -80,6 +82,12 @@ namespace StockExchangeSystem.Models
         {
             get { return lower; }
             set { lower = value; }
+        }
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
         }
 
 

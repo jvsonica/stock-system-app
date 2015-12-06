@@ -60,6 +60,8 @@ namespace StockExchangeSystem
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.StocksList.SelectedIndex= -1;
+            loginOrRegister();
+
 
         }
 
@@ -78,6 +80,7 @@ namespace StockExchangeSystem
                 Uri uri = new Uri(url);
                 HttpClient client = new HttpClient();
                 HttpResponseMessage response = await client.PostAsync(uri, new FormUrlEncodedContent(values));
+                stocks.Clear();
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     string answer = await response.Content.ReadAsStringAsync();
@@ -97,7 +100,8 @@ namespace StockExchangeSystem
                             string upper = stock.GetNamedNumber("upper").ToString();
                             string lower = stock.GetNamedNumber("lower").ToString();
                             bool notify = stock.GetNamedBoolean("notification");
-                            stocks.Add(new Stock(symbol, name, upper,lower,notify ? "true" : "false"));
+                            string id = stock.GetNamedNumber("id").ToString();
+                            stocks.Add(new Stock(symbol, name, upper,lower,notify ? "true" : "false",id));
                         }
                     }
                     
@@ -132,7 +136,8 @@ namespace StockExchangeSystem
                     string upper = stock.GetNamedNumber("upper").ToString();
                     string lower = stock.GetNamedNumber("lower").ToString();
                     Boolean notify = stock.GetNamedBoolean("notification");
-                    stocks.Add(new Stock(symbol, name, upper, lower, notify ? "true":"false"));
+                    string _id = stock.GetNamedNumber("id").ToString();
+                    stocks.Add(new Stock(symbol, name, upper, lower, notify ? "true":"false",_id));
                 }
                 
             }
